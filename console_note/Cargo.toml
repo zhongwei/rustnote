@@ -1,0 +1,7 @@
+[package]
+name = "console_note"
+version = "0.1.0"
+authors = ["Zhong Wei <zhongwei99@163.com>"]
+
+[dependencies]
+console = "0.6.1"
