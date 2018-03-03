@@ -17,7 +17,6 @@ extern crate rocket_contrib;
 #[macro_use]
 extern crate serde_derive;
 
-use std::io::Read;
 use std::sync::Mutex;
 use std::collections::HashSet;
 use crypto::sha2::Sha256;
@@ -230,7 +229,7 @@ fn chain() -> Json<Value> {
 fn nodes_resolve() -> Json<Value> {
     let mut blockchain = GLOBAL_BLOCKCHAIN.lock().unwrap();
 
-    let message = if blockchain.resolve_conflicts() {
+    let _message = if blockchain.resolve_conflicts() {
         "Our chain was replaced"
     } else {
         "Our chain is authoritative"
