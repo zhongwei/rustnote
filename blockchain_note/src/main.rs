@@ -190,8 +190,8 @@ fn get_content(url: &str) -> reqwest::Result<String> {
     reqwest::get(url)?.text()
 }
 
-const INDEX_HTML: &'static [u8] = include_bytes!("../static/index.html");
-const BULMA_CSS: &'static [u8] = include_bytes!("../static/vendor/bulma.min.css");
+const INDEX_HTML: &'static [u8] = include_bytes!("../public/index.html");
+const BULMA_CSS: &'static [u8] = include_bytes!("../public/vendor/bulma.min.css");
 
 #[get("/")]
 fn index() -> content::Html<String> {
