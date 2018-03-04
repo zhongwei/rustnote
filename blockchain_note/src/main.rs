@@ -22,6 +22,7 @@ use std::collections::HashSet;
 use crypto::sha2::Sha256;
 use crypto::digest::Digest;
 use chrono::prelude::*;
+use rocket::response::content;
 use rocket_contrib::{Json, Value};
 use url::Url;
 
@@ -189,6 +190,12 @@ fn get_content(url: &str) -> reqwest::Result<String> {
     reqwest::get(url)?.text()
 }
 
+#[get("/")]
+fn index() -> content::Html<String> {
+    let html: String = "<!DOCTYPE html><html><head><title>test</title></head><body>hahhahahahaha</body></html>".to_string();
+    content::Html(html)
+}
+
 #[get("/mine")]
 fn mine() -> Json<Value> {
     let mut blockchain = GLOBAL_BLOCKCHAIN.lock().unwrap();
@@ -276,13 +283,14 @@ fn transactions(transaction: Json<Transaction>) -> Json<Value> {
 }
 
 fn main() {
-    if open::that("http://localhost:8000/chain").is_ok() {
+    if open::that("http://localhost:8000").is_ok() {
         println!("Look at your browser !");
     };
 
     rocket::ignite()
         .mount("/",
             routes![
+                index,
                 mine,
                 chain,
                 nodes_resolve,
