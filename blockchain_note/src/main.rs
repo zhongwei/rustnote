@@ -190,9 +190,11 @@ fn get_content(url: &str) -> reqwest::Result<String> {
     reqwest::get(url)?.text()
 }
 
+const INDEX_HTML: &'static [u8] = include_bytes!("../static/index.html");
+
 #[get("/")]
 fn index() -> content::Html<String> {
-    let html: String = "<!DOCTYPE html><html><head><title>test</title></head><body>hahhahahahaha</body></html>".to_string();
+    let html: String = String::from_utf8_lossy(INDEX_HTML).to_string();
     content::Html(html)
 }
 
