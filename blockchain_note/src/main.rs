@@ -191,11 +191,18 @@ fn get_content(url: &str) -> reqwest::Result<String> {
 }
 
 const INDEX_HTML: &'static [u8] = include_bytes!("../static/index.html");
+const BULMA_CSS: &'static [u8] = include_bytes!("../static/vendor/bulma.min.css");
 
 #[get("/")]
 fn index() -> content::Html<String> {
-    let html: String = String::from_utf8_lossy(INDEX_HTML).to_string();
-    content::Html(html)
+    let index_html: String = String::from_utf8_lossy(INDEX_HTML).to_string();
+    content::Html(index_html)
+}
+
+#[get("/vendor/bulma.min.css")]
+fn bulma_css() -> content::Css<String> {
+    let bulma_css: String = String::from_utf8_lossy(BULMA_CSS).to_string();
+    content::Css(bulma_css)
 }
 
 #[get("/mine")]
@@ -293,6 +300,7 @@ fn main() {
         .mount("/",
             routes![
                 index,
+                bulma_css,
                 mine,
                 chain,
                 nodes_resolve,
