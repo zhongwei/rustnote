@@ -1,4 +1,6 @@
 use std::ops::Deref;
+use std::env;
+
 use rocket::http::Status;
 use rocket::request::{self, FromRequest};
 use rocket::{Request, State, Outcome};
@@ -10,11 +12,11 @@ use diesel::pg::PgConnection;
 
 pub type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
-// static DATABASE_URL: &'static str = env!("DATABASE_URL");
 const  DATABASE_URL: &'static str = "postgresql://postgres:postgres@localhost:5432/postgres";
 
 pub fn connect() -> Pool {
-    let manager = ConnectionManager::<PgConnection>::new(DATABASE_URL);
+    let database_url = env::var("DATABASE_URL").unwrap_or(String::from(DATABASE_URL));
+    let manager = ConnectionManager::<PgConnection>::new(database_url);
     r2d2::Pool::builder().build(manager).expect("Failed to create pool")
 } 
 

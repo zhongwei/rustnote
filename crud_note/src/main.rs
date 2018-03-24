@@ -59,12 +59,9 @@ fn delete(id: i32, connection: db::Connection) -> Json<Value> {
     }))
 }
 
-const DEFAULT_DATABASE_URL: &'static str = "postgresql://postgres:postgres@localhost:5432/postgres";
-
 fn main() {
     rocket::ignite()
         .manage(db::connect())
-        .mount("/user", routes![create, update, delete])
-        .mount("/users", routes![read])
+        .mount("/users", routes![create, read, update, delete])
         .launch();
 }
