@@ -1,0 +1,8 @@
+[package]
+name = "qrshare_note"
+version = "0.1.0"
+authors = ["Zhong Wei <zhongwei99@163.com>"]
+
+[dependencies]
+qrcode = "*"
+image = "*"
