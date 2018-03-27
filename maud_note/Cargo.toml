@@ -1,0 +1,9 @@
+[package]
+name = "maud_note"
+version = "0.1.0"
+authors = ["Zhong Wei <zhongwei99@163.com>"]
+
+[dependencies]
+rocket = "0.3"
+rocket_codegen = "0.3"
+maud = { version = "*", features = ["rocket"] }
